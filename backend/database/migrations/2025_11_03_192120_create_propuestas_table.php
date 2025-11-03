@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('propuestas', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger('id_cliente')->foreign()->references('id')->on('clientes');
+            $table->integer('honorarios');
+            $table->integer('abono');
+            $table->integer('cuotas');
+            $table->integer('valor_cuota');
+            $table->bigInteger('id_usuario')->foreign()->references('id')->on('usuarios');
+            $table->integer('id_estado'); // TODO: Crear tabla estados.
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('propuestas');
+    }
+};

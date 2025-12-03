@@ -104,11 +104,36 @@ services:
     depends_on:
       - mysql
 
+  # DbGate - Alternative Database Tool with ER Diagram
+  dbgate:
+    image: dbgate/dbgate:latest
+    container_name: leydeudo_dbgate
+    restart: unless-stopped
+    ports:
+      - "8084:3000"
+    environment:
+      - CONNECTIONS=con1
+      - LABEL_con1=LeyDeudo MySQL
+      - SERVER_con1=mysql
+      - USER_con1=${DB_USERNAME}
+      - PASSWORD_con1=${DB_PASSWORD}
+      - PORT_con1=3306
+      - ENGINE_con1=mysql@dbgate-plugin-mysql
+      - DATABASE_con1=${DB_DATABASE}
+    volumes:
+      - dbgate_data:/root/.dbgate
+    networks:
+      - leydeudo_network
+    depends_on:
+      - mysql
+
 # Volumes
 volumes:
   mysql_data:
     driver: local
   redis_data:
+    driver: local
+  dbgate_data:
     driver: local
 
 # Networks

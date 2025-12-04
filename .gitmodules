@@ -1,3 +1,6 @@
 [submodule "backend"]
 	path = backend
 	url = https://github.com/djulitro/leydeudo-backend.git
+[submodule "frontend"]
+	path = frontend
+	url = git@github.com:djulitro/leydeudo-frontend.git

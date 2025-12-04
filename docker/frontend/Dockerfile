@@ -14,5 +14,5 @@ RUN npm install react-scripts@5.0.1 -g --silent
 # Copy app files
 COPY . ./
 
-# Start app
-CMD ["npm", "start"]
+# Start app in development mode
+CMD ["npm", "run", "dev"]

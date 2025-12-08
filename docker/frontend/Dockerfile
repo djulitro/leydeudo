@@ -1,18 +1,17 @@
-FROM node:18-alpine
+FROM node:20-alpine
 
 # Set working directory
 WORKDIR /app
 
-# Add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
-
-# Install app dependencies
-COPY package*.json ./
-RUN npm ci --silent
-RUN npm install react-scripts@5.0.1 -g --silent
+# Install dependencies
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 
 # Copy app files
 COPY . ./
 
+# Expose port (from .env or default 3000)
+EXPOSE 3000
+
 # Start app in development mode
-CMD ["npm", "run", "dev"]
+CMD ["yarn", "dev", "--host"]
